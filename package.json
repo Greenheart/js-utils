@@ -1,0 +1,12 @@
+{
+  "name": "js-utils",
+  "version": "0.0.1",
+  "description": "Useful functions",
+  "main": "index.js",
+  "repository": {},
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Samuel Plumppu",
+  "license": "MIT"
+}
