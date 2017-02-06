@@ -1,6 +1,7 @@
 module.exports = {
   range,
-  transform
+  transform,
+  memoize
 }
 
 function range (min = 0, max = 1) {
@@ -14,4 +15,19 @@ function transform (obj, options) {
       transformed[options[prop]] = obj[prop]
       return transformed
     }, {})
+}
+
+function cache (fn, key) {
+  if (!fn.cache) {
+    fn.cache = {}
+  }
+
+  if (!fn.cache[key]) {
+    fn.cache[key] = fn(key)
+  }
+  return fn.cache[key]
+}
+
+function memoize (fn) {
+  return cache.bind(null, fn)
 }
