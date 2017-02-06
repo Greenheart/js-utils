@@ -1,7 +1,9 @@
 module.exports = {
   range,
   transform,
-  memoize
+  memoize,
+  Reducers,
+  Filters
 }
 
 function range (min = 0, max = 1) {
@@ -30,4 +32,20 @@ function cache (fn, key) {
 
 function memoize (fn) {
   return cache.bind(null, fn)
+}
+
+const Reducers = {
+  flatten (a, b) {
+    return a.concat(b)
+  },
+
+  sum (a, b) {
+    return a + b
+  }
+}
+
+const Filters = {
+  keepUnique (item, index, array) {
+    return index === array.indexOf(item)
+  }
 }
