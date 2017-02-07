@@ -24,9 +24,10 @@ function cache (fn, key) {
     fn.cache = {}
   }
 
-  if (!fn.cache[key]) {
+  if (fn.cache[key] === undefined) {
     fn.cache[key] = fn(key)
   }
+
   return fn.cache[key]
 }
 
@@ -37,6 +38,12 @@ function memoize (fn) {
 const Reducers = {
   flatten (a, b) {
     return a.concat(b)
+  },
+
+  deepFlatten (arr) {
+    return arr.reduce((a, b) => (
+      a.concat(Array.isArray(b) ? this.deepFlatten(b) : b)
+    ), [])
   },
 
   sum (a, b) {
