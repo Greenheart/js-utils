@@ -2,8 +2,10 @@ module.exports = {
   range,
   transform,
   memoize,
+  median,
   Reducers,
-  Filters
+  Filters,
+  Sorters
 }
 
 function range (min = 0, max = 1) {
@@ -35,6 +37,17 @@ function memoize (fn) {
   return cache.bind(null, fn)
 }
 
+function median (...numbers) {
+  const sorted = numbers.sort(Sorters.ascending)
+  const middle = Math.floor(numbers.length / 2)
+
+  if (numbers.length % 2 === 1) {
+    return sorted[middle]
+  }
+
+  return (sorted[middle - 1] + sorted[middle]) / 2.0
+}
+
 const Reducers = {
   flatten (a, b) {
     return a.concat(b)
@@ -55,4 +68,9 @@ const Filters = {
   keepUnique (item, index, array) {
     return index === array.indexOf(item)
   }
+}
+
+const Sorters = {
+  ascending: (a, b) => a - b,
+  descending: (a, b) => b - a
 }
